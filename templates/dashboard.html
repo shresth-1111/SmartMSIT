@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SmartMSIT System Dashboard">
+    <title>SmartMSIT Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar glass-panel">
+        <div class="nav-brand text-gold">SmartMSIT Dashboard</div>
+        <div class="nav-info">
+            <span class="badge info-badge">{{ lab_number }} | {{ pc_number }}</span>
+            <a href="/" class="btn-outline text-gold" style="text-decoration:none;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        
+        <!-- System Stats Cards -->
+        <section class="stats-grid">
+            <div class="stat-card glass-panel">
+                <h3>CPU Usage</h3>
+                <div class="stat-value text-gold">{{ stats.cpu_usage }}%</div>
+            </div>
+            <div class="stat-card glass-panel">
+                <h3>RAM Usage</h3>
+                <div class="stat-value text-gold">{{ stats.ram_usage }}%</div>
+            </div>
+            <div class="stat-card glass-panel">
+                <h3>Disk Usage</h3>
+                <div class="stat-value text-gold">{{ stats.disk_usage }}%</div>
+            </div>
+            <div class="stat-card glass-panel">
+                <h3>Internet Status</h3>
+                <div class="stat-value text-gold">{{ stats.internet_status }}</div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section glass-panel">
+            <h2>Performance Charts</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <canvas id="cpuChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ramChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="diskChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Issues and Actions Section -->
+        <section class="bottom-section">
+            <div class="issues-list glass-panel">
+                <h2>Recent Issues</h2>
+                <ul>
+                    <li><span class="badge issue-badge">PC-12</span> Keyboard not working</li>
+                    <li><span class="badge issue-badge">PC-03</span> System very slow</li>
+                    <li><span class="badge issue-badge">PC-07</span> No internet</li>
+                </ul>
+            </div>
+            
+            <div class="actions-panel glass-panel">
+                <h2>Quick Actions</h2>
+                <p style="margin-bottom: 20px; color: #b3b3b3;">Found a problem on this PC?</p>
+                <button class="btn-primary" id="reportBtn">Report New Issue</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Issue Reporting Modal -->
+    <div id="issueModal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close-btn" id="closeModalBtn">&times;</span>
+            <h2 class="text-gold" style="margin-bottom:20px;">Report New Issue</h2>
+            <form id="issueForm" class="login-form">
+                <div class="form-group">
+                    <label for="issueContext">PC Information</label>
+                    <input type="text" id="issueContext" value="{{ lab_number }} - {{ pc_number }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="issueTitle">Issue Title</label>
+                    <input type="text" id="issueTitle" placeholder="e.g. Mouse not responding" required>
+                </div>
+                <div class="form-group">
+                    <label for="issueDesc">Description</label>
+                    <textarea id="issueDesc" rows="4" placeholder="Briefly describe the problem..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit Report</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Passing python variables to javascript safely -->
+    <script>
+        const systemStats = {
+            cpu: {{ stats.cpu_usage }},
+            ram: {{ stats.ram_usage }},
+            disk: {{ stats.disk_usage }}
+        };
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

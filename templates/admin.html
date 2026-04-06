@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SmartMSIT Admin Panel">
+    <title>SmartMSIT Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar glass-panel">
+        <div class="nav-brand text-gold">SmartMSIT Admin Panel</div>
+        <div class="nav-info">
+            <a href="/" class="btn-outline text-gold" style="text-decoration:none;">Back to Login</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <section class="glass-panel" style="padding: 24px;">
+            <h2 style="margin-bottom: 20px;">Active Reported Issues</h2>
+            
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Lab Number</th>
+                            <th>PC Number</th>
+                            <th>Issue Description</th>
+                            <th>Reported By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lab 4</td>
+                            <td>PC-12</td>
+                            <td>Keyboard not working properly</td>
+                            <td><span class="badge info-badge">Student</span></td>
+                            <td><button class="btn-primary btn-small resolve-btn">Mark Resolved</button></td>
+                        </tr>
+                        <tr>
+                            <td>Lab 2</td>
+                            <td>PC-05</td>
+                            <td>System RAM usage stuck at 99%</td>
+                            <td><span class="badge issue-badge">System App</span></td>
+                            <td><button class="btn-primary btn-small resolve-btn">Mark Resolved</button></td>
+                        </tr>
+                        <tr>
+                            <td>Lab 10</td>
+                            <td>PC-18</td>
+                            <td>No internet connectivity detected</td>
+                            <td><span class="badge issue-badge">System App</span></td>
+                            <td><button class="btn-primary btn-small resolve-btn">Mark Resolved</button></td>
+                        </tr>
+                        <tr>
+                            <td>Lab 4</td>
+                            <td>PC-22</td>
+                            <td>Mouse is unresponsive, needs replacement</td>
+                            <td><span class="badge info-badge">Student</span></td>
+                            <td><button class="btn-primary btn-small resolve-btn">Mark Resolved</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Simple JS to handle the "Mark Resolved" functionality
+        const resolveButtons = document.querySelectorAll('.resolve-btn');
+        resolveButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                
+                // Confirm action
+                if(confirm("Are you sure you want to mark this issue as resolved?")) {
+                    row.style.opacity = '0.4';
+                    row.style.transition = 'opacity 0.3s';
+                    e.target.disabled = true;
+                    e.target.innerText = "Resolved ✓";
+                    e.target.style.background = "transparent";
+                    e.target.style.border = "1px solid #a0a0a0";
+                    e.target.style.color = "#a0a0a0";
+                    e.target.style.boxShadow = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SmartMSIT Login">
+    <title>SmartMSIT Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container glass-panel">
+        <h1 class="text-gold">SmartMSIT</h1>
+        <p class="subtitle">System Monitoring Portal</p>
+        
+        <form action="/dashboard" method="GET" class="login-form">
+            <div class="form-group">
+                <label for="lab">Lab Number</label>
+                <input type="text" id="lab" name="lab" placeholder="e.g. Lab 4" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="pc">PC Number</label>
+                <input type="text" id="pc" name="pc" placeholder="e.g. PC-12" required>
+            </div>
+            
+            <button type="submit" class="btn-primary">Open Dashboard</button>
+        </form>
+        
+        <div style="margin-top: 25px;">
+            <a href="/admin" class="text-gold" style="font-size: 0.9rem; text-decoration: underline;">Go to Admin Panel</a>
+        </div>
+    </div>
+</body>
+</html>
